@@ -59,7 +59,7 @@ Eigen::MatrixXd tutte_embedding(const Eigen::MatrixXd &_V, const Eigen::MatrixXi
   // Compute interior vertex positions
   igl::harmonic(F, b, bc, 1, P);
 
-  return P;
+  return P;  // the interior vertex positions
 }
 
 Eigen::MatrixXd localGlobal(const Eigen::MatrixXd &V,
@@ -144,12 +144,12 @@ precomputeParamData(geometrycentral::surface::VertexPositionGeometry &geometry)
     Eigen::Vector3d b1 = (br_3d - ar_3d).normalized();
     Eigen::Vector3d b2 = n.cross(b1).normalized();
 
-    // Express a, b, c in local 2D coordiante system
+    // Express a, b, c in local 2D coordinate system
     Eigen::Vector2d ar_2d(0.0, 0.0);
     Eigen::Vector2d br_2d((br_3d - ar_3d).dot(b1), 0.0);
     Eigen::Vector2d cr_2d((cr_3d - ar_3d).dot(b1), (cr_3d - ar_3d).dot(b2));
 
-    // Save 2-by-2 matrix with edge vectors as colums
+    // Save 2-by-2 matrix with edge vectors as columns
     rest_shapes[f] = TinyAD::col_mat(br_2d - ar_2d, cr_2d - ar_2d);
   };
   return rest_shapes;

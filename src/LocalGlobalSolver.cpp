@@ -98,6 +98,8 @@ void LocalGlobalSolver::solve(Eigen::Ref<Eigen::MatrixX2d> U, double sMin, doubl
   }
 }
 
+// enforce constraints on the deformation of a mesh face during the optimization process.
+// By controlling the singular values of the deformation matrices, it ensures that the deformation stays within certain bounds.
 Eigen::Matrix2d LocalGlobalSolver::project(const Eigen::Matrix2d& M, double sMin, double sMax, int i)
 {
   using namespace Eigen;
@@ -112,7 +114,7 @@ Eigen::Matrix2d LocalGlobalSolver::project(const Eigen::Matrix2d& M, double sMin
   stressY.row(i) = svd.matrixU().col(1);
 
   S(1, 1) = sMin;
-  S(0, 0) = sMax;
+  S(0, 0) = sMax;  // modifies the original singular values of M, enforcing the constraints represented by sMin and sMax.
   return svd.matrixU() * S * svd.matrixV().transpose();
 }
 

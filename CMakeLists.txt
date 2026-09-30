@@ -28,14 +28,16 @@ FetchContent_Declare(
 FetchContent_Declare(
     polyscope
     GIT_REPOSITORY https://github.com/nmwsharp/polyscope.git
-    GIT_TAG c772fd9bf05f4d914fbc74fd5f1a69af58687a87
+#    GIT_TAG c772fd9bf05f4d914fbc74fd5f1a69af58687a87
+        GIT_TAG 6bcc99ba68d832a764e60b7e74f542ada1e348bb
 )
 
 # geometry-central
 FetchContent_Declare(
     geometry-central
     GIT_REPOSITORY https://github.com/nmwsharp/geometry-central.git
-    GIT_TAG b467ce80c4be13b94160f0f579cc71500eae5663
+#    GIT_TAG b467ce80c4be13b94160f0f579cc71500eae5663
+        GIT_TAG ca6ca18b4f761d69f60ba33aa5f869269cf97e3f
 )
 FetchContent_MakeAvailable(libigl TinyAD polyscope geometry-central)
 
@@ -85,10 +87,18 @@ file(GLOB SRCFILES
   
 # Create executables
 add_executable(shrink_morph  src/main.cpp ${SRCFILES})
+add_executable(stripe  src/main2.cpp ${SRCFILES})
+add_executable(stripe_barrel_vault  src/main2_barrel_vault.cpp ${SRCFILES})
+add_executable(stripe_barrel_vault_boundary  src/main2_barrel_vault_boundary.cpp ${SRCFILES})
+add_executable(compute_vertex_direction_field  src/compute_vertex_direction_field.cpp ${SRCFILES})
 add_executable(shrink_morph_cli  src/cli.cpp ${SRCFILES})
-set(EXECUTABLES 
-  shrink_morph 
+set(EXECUTABLES
+  shrink_morph
   shrink_morph_cli
+  stripe
+  stripe_barrel_vault
+  stripe_barrel_vault_boundary
+  compute_vertex_direction_field
 )
   
 foreach(exec ${EXECUTABLES})

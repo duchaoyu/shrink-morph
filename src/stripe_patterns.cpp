@@ -45,7 +45,7 @@ double computeOmega(IntrinsicGeometryInterface& geometry,
   double omegaIJ = (lij / 2.) * (frequencies[e.firstVertex()] * cos(phiI - thetaI) +
                                  frequencies[e.secondVertex()] * cos(phiJ - thetaJ));
 
-  return omegaIJ;
+  return omegaIJ; // represents the contribution of the edge to the overall 1-form on the surface
 }
 } // namespace
 
